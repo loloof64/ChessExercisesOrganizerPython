@@ -3,7 +3,7 @@
 from tkinter import Tk, Label, Entry, Button
 from tkinter.messagebox import showinfo, showerror
 
-from board import ChessBoard
+from chess_board import ChessBoard
 
 window = Tk()
 
