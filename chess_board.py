@@ -1,6 +1,6 @@
 # coding: utf-8
  
-from tkinter import Canvas
+from tkinter import Canvas, ALL
 
 class ChessBoard(Canvas):
     def __init__(self, parent=None, cells_size=50):
@@ -26,6 +26,4 @@ class ChessBoard(Canvas):
                 self._canvas_elements.append(self.create_rectangle(x1, y1, x2, y2, fill=color))
 
     def _erase_canvas(self):
-        for element in self._canvas_elements:
-            self.delete(element)
-            self._canvas_elements.remove(element)
+        self.delete(ALL)
