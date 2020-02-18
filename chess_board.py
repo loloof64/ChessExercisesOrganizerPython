@@ -3,10 +3,13 @@
 from tkinter import Canvas, ALL
 import tkinter.font as tkFont
 
+import chess
+
 class ChessBoard(Canvas):
     def __init__(self, parent=None, cells_size=50):
         self._cells_size = cells_size
         self._board_size = cells_size * 9
+        self.logic = chess.Board()
         Canvas.__init__(self, parent, width=self._board_size, height=self._board_size, background="#44EE66")
         self._paint()
 
@@ -14,6 +17,7 @@ class ChessBoard(Canvas):
         self._erase_canvas()
         self._paint_cells()
         self._paint_coordinates()
+        self._paint_player_turn()
 
     def _erase_canvas(self):
         self.delete(ALL)
@@ -54,3 +58,12 @@ class ChessBoard(Canvas):
             y = self._cells_size * (1.0 + row)
             self.create_text(xl, y, text=text, fill=color, font=font)
             self.create_text(xr, y, text=text, fill=color, font=font)
+
+    def _paint_player_turn(self):
+        if self.logic.turn == chess.WHITE:
+            color = "white"
+        else:
+            color = "black"
+        location_top = self._cells_size * 8.5
+        location_bot = self._cells_size * 9.0
+        self.create_oval(location_top, location_top, location_bot, location_bot, fill=color, outline="")
