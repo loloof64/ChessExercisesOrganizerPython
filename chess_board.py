@@ -30,7 +30,7 @@ class ChessBoard(Canvas):
                 y1 = self._cells_size * (row + 0.5)
                 x2 = self._cells_size * (col + 1.5)
                 y2 = self._cells_size * (row + 1.5)
-                self.create_rectangle(x1, y1, x2, y2, fill=color)
+                self.create_rectangle(x1, y1, x2, y2, fill=color, outline="")
 
     def _paint_coordinates(self):
         color = "yellow"
