@@ -5,6 +5,7 @@ Organize your favorite chess positions and play them against the computer at its
 ## Credits
 
 Knight icon downloaded from http://www.iconarchive.com/show/mac-icons-by-artua/Chess-icon.html.
+Chess vectors were downloaded from [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:SVG_chess_pieces) and designed by CBurnett.
 
 ## Developpers
 

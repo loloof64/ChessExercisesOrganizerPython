@@ -2,14 +2,17 @@
  
 from tkinter import Canvas, ALL
 import tkinter.font as tkFont
+from PIL import ImageTk as itk
 
 import chess
+import chess_images
 
 class ChessBoard(Canvas):
     def __init__(self, parent=None, cells_size=50):
         self._cells_size = cells_size
         self._board_size = cells_size * 9
-        self.logic = chess.Board()
+        self._piece_images = chess_images.ChessImages(cells_size)
+        self._logic = chess.Board()
         Canvas.__init__(self, parent, width=self._board_size, height=self._board_size, background="#44EE66")
         self._paint()
 
@@ -18,6 +21,7 @@ class ChessBoard(Canvas):
         self._paint_cells()
         self._paint_coordinates()
         self._paint_player_turn()
+        self._paint_pieces()
 
     def _erase_canvas(self):
         self.delete(ALL)
@@ -60,10 +64,29 @@ class ChessBoard(Canvas):
             self.create_text(xr, y, text=text, fill=color, font=font)
 
     def _paint_player_turn(self):
-        if self.logic.turn == chess.WHITE:
+        if self._logic.turn == chess.WHITE:
             color = "white"
         else:
             color = "black"
         location_top = self._cells_size * 8.5
         location_bot = self._cells_size * 9.0
         self.create_oval(location_top, location_top, location_bot, location_bot, fill=color, outline="")
+
+    def _paint_pieces(self):
+        for row in range(0 ,8):
+            for col in range(0, 8):
+                piece_symbol = self._logic.piece_at(chess.square(col, 7-row))
+                if piece_symbol is not None:
+                    image_ref = self._piece_symbol_to_piece_image_ref(piece_symbol.symbol())
+                    image = self._piece_images.get_image(image_ref)
+
+                    x = self._cells_size * (col + 1.0)
+                    y = self._cells_size * (row + 1.0)
+                    self.create_image(x, y, image=image)
+
+    def _piece_symbol_to_piece_image_ref(self, symbol):
+        matchings = {
+            'P': 'pl', 'N': 'nl', 'B': 'bl', 'R': 'rl', 'Q': 'ql', 'K': 'kl',
+            'p': 'pd', 'n': 'nd', 'b': 'bd', 'r': 'rd', 'q': 'qd', 'k': 'kd',
+        }
+        return matchings[symbol]

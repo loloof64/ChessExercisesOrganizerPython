@@ -8,7 +8,7 @@ window.resizable(False, False)
 window.title("Chess Exercises Organizer")
 window.tk.call('wm', 'iconphoto', window._w, PhotoImage(file='knight.png'))
 
-chess_board = ChessBoard(window, 60)
+chess_board = ChessBoard(window)
 
 chess_board.pack()
 
